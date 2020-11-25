@@ -1,0 +1,42 @@
+# 用户信息表
+CREATE TABLE `user_info` (
+  `id` int(11) UNSIGNED  AUTO_INCREMENT NOT NULL COMMENT '自增主键ID',
+  `user_id` varchar(32) NOT NULL DEFAULT '' COMMENT '用户ID',
+  `user_name` varchar(50) NOT NULL DEFAULT '' COMMENT '用户名称',
+  `ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `uk_user_id` (`user_id`) USING BTREE,
+	KEY `mtime` (`mtime`) USING BTREE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+
+# 商品信息表
+CREATE TABLE `product_info` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `product_id` varchar(100) NOT NULL DEFAULT '' COMMENT '渠道商品ID',
+  `product_name` varchar(100) NOT NULL DEFAULT '' COMMENT '商品名称',
+  `amount` int(11) NOT NULL DEFAULT 0 COMMENT '价格',
+	`ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_product_id` (`product_id`) USING BTREE,
+	KEY `mtime` (`mtime`) USING BTREE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='商品信息表';
+
+#订单表
+CREATE TABLE `pay_order` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `amount` int(11) NOT NULL DEFAULT 0 COMMENT '消费金额',
+  `user_id` varchar(32) NOT NULL DEFAULT '' COMMENT '消费用户的id',
+  `order_no` varchar(50) NOT NULL DEFAULT '' COMMENT '消费订单号',
+  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1.消费中 2.消费成功 3.消费失败',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '订单信息备注说明',
+  `ver` int(11) NOT NULL DEFAULT 0 COMMENT '版本，用于乐观锁',
+	`ctime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `mtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `product_id` varchar(128) NOT NULL DEFAULT '' COMMENT '商品id',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_order_no` (`order_no`) USING BTREE,
+  KEY `ix_user_id` (`user_id`) USING BTREE,
+  KEY `ix_mtime` (`mtime`) USING BTREE,
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 comment='订单表';
