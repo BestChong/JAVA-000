@@ -1,0 +1,18 @@
+参数配置                                                   参数解释
+
+-Xms: 6144M                                               最小堆内存
+-Xmx: 6144M                                               最大堆内存
+-Xmn: 2304M                                               新生代大小
+-Xss: 512K                                                栈的深度
+-XX:SurvivorRatio=10                                      Eden:S0:S1=8:1:1
+-XX:+UseConcMarkSweepGC                                   老年代垃圾回收器 
+-XX:+UseParNewGC                                          新生代垃圾回收器
+-XX:CMSMaxAbortablePrecleanTime=500                        
+-XX:+CMSClassUnloadingEnabled                           
+-XX:CMSInitiatingOccupancyFraction=60
+-XX:+UseCMSInitiatingOccupancyOnly
+-XX:+UseCMSCompactAtFullCollection
+-XX:CMSFullGCsBeforeCompaction=4
+
+
+优化点暂无
